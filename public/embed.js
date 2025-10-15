@@ -1,5 +1,5 @@
 (() => {
-  const BOT_URL = "http://localhost:3000";
+  const BOT_URL = "https://aya-portfolio-chatbot.vercel.app";
   const W = 400, H = 520;
 
   const accentGradient = "linear-gradient(90deg, #667eea, #764ba2, #f093fb)";
