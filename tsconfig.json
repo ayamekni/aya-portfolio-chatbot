@@ -1,0 +1,55 @@
+{
+  "compilerOptions": {
+    // Modern JS target
+    "target": "ES2021",
+    // Use CommonJS modules for best compatibility with ts-node
+    "module": "commonjs",
+    // Standard libs
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2021"
+    ],
+    // Type safety and performance
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true, // since Next.js does its own build
+    // Module resolution for modern projects
+    "moduleResolution": "node", // <-- Use "node" for ts-node and Next.js
+    "resolveJsonModule": true, // Enables importing .json files
+    "esModuleInterop": true, // Enables default imports from CommonJS modules
+    "isolatedModules": true,
+    "jsx": "preserve",
+    // Path aliases for cleaner imports
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/data/*": [
+        "data/*"
+      ]
+    },
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts", // Next.js types
+    "**/*.ts",
+    "**/*.tsx",
+    "scripts/**/*.ts" // includes your scripts
+    ,
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules" // always exclude node_modules
+  ]
+}

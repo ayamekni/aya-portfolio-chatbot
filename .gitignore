@@ -1,0 +1,45 @@
+# ==========================
+# 📦 Node / Next.js
+# ==========================
+node_modules/
+.next/
+.turbo/
+dist/
+out/
+build/
+
+# ==========================
+# ⚙️ Environment & Secrets
+# ==========================
+.env
+
+
+# ==========================
+# 🧠 Data / Generated Artifacts
+# ==========================
+data/index.json
+data/*.json
+
+# ==========================
+# 🧾 Personal CV / Private Content
+# ==========================
+data/cv.md
+
+
+
+
+# ==========================
+# 💻 IDE & System Files
+# ==========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# ==========================
+# 🔧 Misc
+# ==========================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
