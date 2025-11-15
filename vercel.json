@@ -1,12 +1,8 @@
 {
-  "build": {
-    "env": {
-      "NODE_VERSION": "20"
-    }
-  },
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs20.x"
-    }
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "env": {
+    "NODE_VERSION": "20"
   }
 }
