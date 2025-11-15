@@ -1,143 +1,180 @@
-Aya Mekni  
-Location: Tunisia | Graduation: 2026  
-Email: aya.mekni@esprim.tn | Phone: +216 92 819 319  
-Portfolio: yourwebsite.com  
-LinkedIn: linkedin.com/in/aya-mekni  
-GitHub: github.com/ayamekni  
+# Aya Mekni
+Final-Year Data Science and AI Engineering Student (ESPRIM — Graduating June 2026)
+Seeking 6-Month Internship starting January 2026
+Location: Tunisia | Email: aya.mekni@esprim.tn | Phone: +216 92 819 319
+Portfolio: yourwebsite.com | LinkedIn: https://linkedin.com/in/aya-mekni | GitHub: https://github.com/ayamekni
 
 ---
 
-## Profile  
-Motivated fifth-year Computer Science Engineering student (graduating in June 2026), specializing in Data Science & Artificial Intelligence. Passionate about building end-to-end solutions that transform raw data into real-world impact—from ETL pipelines and feature engineering, through ML/DL training, evaluation, and deployment, to robust MLOps practices. Interested in Big Data ecosystems and the next generation of intelligent applications powered by Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Computer Vision, and AI Agents. Seeking a 6-month mandatory internship in Europe starting January 2026 to deepen my expertise and contribute to innovative projects in the AI field.
+## Professional Summary
+Motivated and certified AI Engineer passionate about building intelligent, production-ready solutions that connect data pipelines, machine learning, MLOps deployment, and human-centric AI agents.
+
+Certified by NVIDIA in RAG Systems, Transformer-Based NLP, and Generative AI. Experienced in designing scalable systems powered by LLMs, LangChain, Neo4j, and Cloud Computing.
+
+Actively seeking a 6-month end-of-study internship (January–June 2026) to contribute to innovative projects in AI, Data Engineering, MLOps, and Generative AI.
 
 ---
 
-## What Drives Me  
-- Curiosity to solve complex, real-world problems with technology  
-- The challenge of turning messy data into actionable insights  
-- Collaboration in diverse, cross-functional teams  
-- Continuous learning and pushing the boundaries of what AI can achieve  
-- Building things that make a positive impact—whether for businesses, educators, or society
+## Work Experience
+
+### Data Science and Machine Learning Intern — CarthaPlay (Remote, Tunisia · Jun–Aug 2025)
+Project: Student Behavior Analytics and Recommendation Engine (EdTech)
+- Analyzed over 7000 gameplay logs using Python and Pandas to identify student learning trends.
+- Developed hybrid models with TensorFlow, PyTorch, LSTM, and Transformers for activity recognition and anomaly detection.
+- Built scalable ETL pipelines for ingestion, cleaning, pattern detection, and aggregation.
+- Created a RAG-based recommendation engine using LangChain, LLMs (Ollama), and Neo4j.
+- Added explainable AI elements such as confidence scores and rationales to increase transparency.
+- Implemented a teacher-facing chatbot to deliver actionable student insights.
+
+### Data Science and AI Contributor — AfriOffres (Pan-African Tender Platform · Jun–Jul 2025)
+- Built a recommendation system using TF-IDF and sentence embeddings, improving accuracy by 20%.
+- Developed automated web scraping pipelines using BeautifulSoup and Selenium across multiple African countries.
+- Created an AI assistant using RAG and LangChain to extract tender requirements and generate bid responses.
+
+### Software Engineer Intern — Anypli (Monastir, Tunisia · Jun–Aug 2024)
+- Developed Eventify, an event management platform using Laravel and Tailwind CSS.
+- Implemented multi-factor authentication (MFA) and role-based access control (RBAC) with OWASP-compliant security.
+- Built real-time dashboards and comment systems using Laravel Broadcasting and WebSockets.
+- Optimized database performance and ORM queries with Eloquent and caching.
+- Participated in Agile sprints, contributing to code reviews and technical documentation.
 
 ---
 
-## Non-Technical Skills  
-- Communication: Able to explain complex technical concepts clearly to non-technical audiences  
-- Teamwork: Enjoy working in collaborative, multicultural environments  
-- Problem-Solving: Strong analytical thinking and adaptability  
-- Initiative: Proactive in taking ownership and driving solutions  
-- Organization: Skilled in project planning and time management  
-- Empathy & Listening: Value feedback, open to new perspectives  
-- Resilience: Stay focused and positive even when challenges arise
+## Core Competencies
+
+- Artificial Intelligence and Machine Learning: supervised and unsupervised learning, Transformers, LSTMs, LangChain, RAG  
+- MLOps and Data Engineering: MLflow, Docker, CI/CD, Spark, Hadoop, Kafka, ETL pipelines  
+- Computer Vision and NLP: YOLOv5, EfficientNet, CNN, Librosa, Hugging Face, text classification  
+- Cloud and DevOps: AWS (EC2, S3, Lambda), Azure AI, GitHub Actions, Kubernetes  
+- Data Visualization and Business Intelligence: Power BI, Tableau, RStudio, Grafana  
+- Programming and Tools: Python, SQL, R, Java, PL/SQL, PostgreSQL, MongoDB, Neo4j  
 
 ---
 
-## Technical Skills  
-**Programming Languages:** Python, SQL, R, Java, PL/SQL  
-**Databases & Data Tools:** PostgreSQL, MySQL, MongoDB, Neo4j, Apache Hive  
-**Data Engineering & Big Data:** Apache Spark, Hadoop, Kafka, MapReduce, ETL/ELT Pipelines, Data Warehousing, Pandas, NumPy, Data Analysis  
-**Machine Learning:** scikit-learn, Random Forest, PCA, DQN, Model Evaluation, CRISP-DM, TDSP  
-**Deep Learning:** TensorFlow, PyTorch, Keras, CNNs, LSTMs  
-**LLMs & AI Agents:** Hugging Face Transformers, Llama, LlamaIndex, Embeddings, RAG, n8n, AI Development  
-**Computer Vision:** OpenCV, YOLO, Object Detection, Feature Extraction, Medical Imaging  
-**Cloud Computing:** AWS (EC2, S3, RDS, Lambda), Azure  
-**MLOps & DevOps:** MLflow, Docker, Kubernetes, GitHub Actions, CI/CD Pipelines, Model Deployment  
-**BI & Visualization:** Power BI, Tableau, RStudio  
-**Monitoring & Observability:** Prometheus, Grafana, ELK Stack  
-**Tools & Practices:** Git, Jira, IntelliJ IDEA, Scrum
+## Education
+
+### ESPRIM — École Supérieure Privée d’Ingénieurs de Monastir (Sep 2023 – Jun 2026)
+National Engineering Diploma in Computer Science — Data Science and Artificial Intelligence  
+Relevant Modules: Machine Learning, Deep Learning, Big Data (Spark, Hadoop), MLOps, NLP, Computer Vision
+
+### FSM — Faculté des Sciences de Monastir (Sep 2021 – Jun 2023)
+Pre-Engineering Diploma in Mathematics, Physics, and Informatics  
+Core Courses: Calculus, Linear Algebra, Data Structures, Algorithms, Python, SQL
 
 ---
 
-## Experience  
-**Data Science & AI Intern, CarthaPlay—Remote, Tunisia (Jun 2025–Aug 2025)**  
-• Analyzed 7,000+ gameplay logs using Python and Pandas to identify student learning trends (timestamps, error rates, response times), delivering documented insights for stakeholders.  
-• Developed hybrid models for activity recognition and anomaly detection using TensorFlow, PyTorch, LSTMs, and Transformers, improving model performance.  
-• Built scalable data pipelines in Python for ingestion, cleaning, pattern detection, and aggregation.  
-• Created a recommendation engine with RAG, LangChain, LLMs, and a Neo4j vector database, achieving 75% matching accuracy in delivering educational content.  
-• Integrated explainable AI (confidence scores, rationales) to enhance educator trust and transparency.  
-• Implemented a teacher-facing chatbot in Python, providing actionable student behavior insights.
+## Certifications
 
-**Software Engineer Intern, Anypli—Monastir, Tunisia (Jun 2024–Aug 2024)**  
-• Developed Eventify, a responsive event management platform using Laravel, Tailwind CSS, and Blade templates.  
-• Implemented Multi-Factor Authentication (MFA) and Role-based Authentication, strengthening platform security in line with industry best practices.  
-• Built real-time dashboards and live comment features with Laravel Broadcasting and WebSockets, increasing user engagement by 25%.  
-• Optimized database performance and CRUD operations with Eloquent ORM, reducing query response times.  
-• Collaborated in Agile sprints, contributing to code reviews and technical documentation to improve team efficiency.
+- Building RAG Agents with LLMs — NVIDIA, Oct 2025  
+- Building Transformer-Based NLP Applications — NVIDIA, Nov 2025  
+- Generative AI with Diffusion Models — NVIDIA, Jun 2025  
+- Applications of AI for Predictive Maintenance — NVIDIA, Apr 2025  
+- Fundamentals of Deep Learning — NVIDIA, Mar 2025  
+- Microsoft Certified: Azure AI Fundamentals (AI-900) — Microsoft / KodeKloud, Feb 2025  
+- Scrum Fundamentals Certified (SFC) — Vabro.ai / VMEdu, Apr 2024  
+- DataCamp Courses (In Progress) — May–Aug 2025  
 
 ---
 
-## Education  
-**ESPRIM — Monastir, Tunisia (Sep 2023–Jun 2026 expected)**  
-National Engineering Diploma in Computer Science (Data Science & AI)  
-Relevant Coursework: Machine Learning; Deep Learning; Big Data Analytics (Apache Spark, Hadoop); MLOps; Data Engineering; Natural Language Processing; Computer Vision.
+## Projects
 
-**FSM — Monastir, Tunisia (Sep 2021–Jun 2023)**  
-Pre-Engineering Diploma (Math–Physics–Informatics)  
-Relevant Coursework: Calculus; Linear Algebra; Probability & Statistics; Data Structures; Algorithms; Python Programming; SQL; Big-O Complexity Analysis.
+### AI and Machine Learning
 
----
+**Speech Emotion Recognition (SER) — EMO-DB and RAVDESS**  
+- Designed and trained CNN on log-mel spectrograms, achieving 85% weighted-F1 score.  
+- Preprocessed data using Librosa, Pandas, NumPy, and Scikit-learn with SpecAugment.  
+Technologies: Python, TensorFlow, Keras, Librosa, SpecAugment, MEALPY  
 
-## Projects  
-**AfriOffres—Panafrican Tender Platform | Data Science & AI Contributor**  
-• Built a recommendation system using TF-IDF and embeddings, achieving 90% matching accuracy and improving performance by 20%.  
-• Developed a web scraping pipeline with Python, BeautifulSoup, and Selenium to standardize tender data across 5 African countries.  
-*Tech Stack:* Python, Pandas, FastAPI, MongoDB, BeautifulSoup, Selenium, TF-IDF, RAG
-
-**Trash to Cash — AI-Powered Recycling Ecosystem | Data Science & AI Developer**  
-• Developed a CNN-based web app with EfficientNet, achieving 92% accuracy and improving classification by 15%.  
-• Built an autonomous robot using YOLOv5 and Reinforcement Learning for recycling detection and navigation.  
-*Tech Stack:* Python, TensorFlow, PyTorch, YOLOv5, Reinforcement Learning, Django REST, MongoDB
-
-**Lung Cancer Prediction — End-to-End MLOps Pipeline | MLOps Engineer**  
-• Built an SVM-based ML pipeline, achieving 88% accuracy and improving prediction by 10%.  
-• Deployed via CI/CD workflows with MLflow and Docker for experiment tracking and production-ready performance.  
-*Tech Stack:* Python, Scikit-learn, MLflow, FastAPI, Docker, Pandas, NumPy
-
-**Speech Emotion Recognition — EMO-DB & RAVDESS | Deep Learning Developer**  
-• Developed a CNN-LSTM model on spectrograms, achieving 85% weighted-F1 score and 15% improvement on EMO-DB and RAVDESS datasets.  
-*Tech Stack:* Python, TensorFlow, Keras, Librosa, Scikit-learn
+**Traffic Prediction for Smart Cities**  
+- Developed IoT-based predictive model using SARIMA and seasonal regression for urban traffic forecasting.  
+- Cleaned and prepared time-series data with anomaly detection and trend modeling.  
+Technologies: Python, Pandas, Statsmodels, ARIMA, SARIMA, Scikit-learn  
 
 ---
 
-## Certifications  
-• Fundamentals of Deep Learning, NVIDIA, Mar 2025  
-• Introduction to Transformer-Based Natural Language Processing, NVIDIA, Aug 2025 (In Progress)  
-• Generative AI with Diffusion Models, NVIDIA, Jun 2025  
-• Applications of AI for Predictive Maintenance, NVIDIA, Apr 2025  
-• Microsoft Certified: Azure AI Fundamentals (AI-900), KodeKloud, Feb 2025  
-• DataCamp (In Progress, May–Aug 2025): Intro to MLflow; RAG with LangChain; Working with Llama 3; Intro to Power BI; AWS Cloud Practitioner; Boto in Python; Streaming Data with Kinesis & Lambda  
-• Scrum Fundamentals Certified (SFC), Vabro.ai/VMEdu, Apr 2024
+### MLOps and Data Engineering
+
+**Lung Cancer Prediction — End-to-End Pipeline**  
+- Built modular ML pipeline with SVM achieving 88% accuracy.  
+- Integrated MLflow tracking and Docker for CI/CD deployment.  
+Technologies: Python, Scikit-learn, MLflow, FastAPI, Docker, Elasticsearch, Kibana  
+
+**AfriOffres — AI Tender Assistant**  
+- Built AI assistant for automated tender response generation using RAG and LangChain.  
+- Applied semantic embeddings for high-accuracy matching.  
+Technologies: Python, FastAPI, MongoDB, Selenium, BeautifulSoup, RAG  
 
 ---
 
-## Languages  
-• Arabic: Native  
-• English: C1  
-• French: C1  
-• German: A2
+### Computer Vision and Robotics
+
+**Trash to Cash — AI-Powered Recycling Ecosystem**  
+- Built CNN (EfficientNet) achieving 92% classification accuracy for bottle recognition.  
+- Integrated YOLOv5 and Reinforcement Learning for robotic navigation and eco-point assignment.  
+Technologies: TensorFlow, PyTorch, YOLOv5, Reinforcement Learning, OpenCV, Django REST  
+
+**Real-Time Facial Emotion Detection**  
+- Developed emotion detection system using DeepFace and OpenCV for live webcam feeds.  
+- Implemented alert system and real-time Flask-React interface.  
+Technologies: Python, Keras, OpenCV, DeepFace, Flask, React  
 
 ---
 
-## Additional Profile Highlights  
-Final-Year Data Science & AI Engineering Student (Jun 2026). Monastir, Tunisia (Open to Relocation—Europe).  
-Internship: Jan–Jun 2026 • Open to full-time Jun 2026+ • Visa eligibility & transcripts ready
+### NLP and Conversational AI
+
+**Personal Chatbot — Portfolio Assistant (In Progress)**  
+- Developing a chatbot to interactively answer recruiter questions using portfolio data.  
+- Includes intent recognition, entity extraction, dialogue flow, and RAG retrieval.  
+Technologies: Python, Rasa, Hugging Face, FastAPI, React, OpenAI API  
 
 ---
 
-## Data/Analytics Engineering Focus (Highlights)  
-• Warehouse & SQL: Advanced analytical SQL (CTEs, windowing, incremental), partitioning (DATE/ingestion), clustering (tenant_id, high-card fields), materialized views, scan cost profiling.  
-• Modeling & Semantics: Star/snowflake, conformed dimensions, basic SCD Type 2, curated semantic layer.  
-• Transformations: Dataform/dbt-style modular SQL (refs, tests).  
-• Data Quality & Observability: Duplicate/null/outlier checks, schema drift diffs, anomaly flags, monitoring view, lineage tracking.  
-• Performance & Cost: EXPLAIN tuning, partition pruning, clustering evaluation, denormalized aggregates for <10s BI latency.  
-• BI & Collaboration: Power BI parametric templates, stakeholder KPI alignment, documentation-first.  
-• Automation & Tooling: Python ETL/validation, GitHub Actions scheduling, Docker, Neo4j enrichment, MLflow lineage, basic AWS (EC2/S3/RDS).
+### Web and Software Development
+
+**JobNest — Job Tracking Web App**  
+- Developed Flask app with MongoDB for managing users and job applications.  
+- Implemented web scraping pipelines using BeautifulSoup and Selenium for live job listings.  
+Technologies: Flask, Python, MongoDB, Bootstrap, Selenium  
+
+**FocusFlow — Productivity App**  
+- Designed Pomodoro timer and statistics dashboard with Spotify integration.  
+Technologies: Vite, React, TypeScript, Tailwind CSS, shadcn/ui, date-fns  
+
+**University Housing System**  
+- Built REST API using Spring Boot for room and resident management.  
+Technologies: Java, Spring Boot, Spring Data JPA, MySQL  
+
+**Gestion des Présentateurs**  
+- Developed ASP.NET Core MVC app for managing presenters and roles with authentication and dashboards.  
+Technologies: C#, ASP.NET Core, Entity Framework, SQL Server, Razor, Bootstrap  
 
 ---
 
-## Recent Experience Emphasis (CarthaPlay, Anypli)  
-• Standardized session/activity/attempt schemas from >7K logs → consistent retention & engagement metrics.  
-• Modular SQL + Python ingestion reducing ad-hoc queries.  
-• Recommendation mapping (content ↔ skill tags) + rationale/confidence for explainability.  
-• Data quality checks + monitoring view; LLM context optimization cut cost 30%.  
-• Event usage aggregations for real-time indicators (+25% engagement); query/index optimization; MFA + RBAC.
+## Languages
+- Arabic: Native  
+- English: C1  
+- French: C1  
+- German: A2  
+
+---
+
+## Additional Highlights
+- Open to relocation in Europe or remote collaboration  
+- Ready for visa process and official transcripts  
+- Interested in AI for Education, Sustainability, and Industry 4.0  
+- Focused on explainable AI, RAG systems, and applied LLM development  
+
+---
+
+## Data and Analytics Engineering Highlights
+- Advanced SQL with CTEs and window functions  
+- Data modeling (Star and Snowflake schemas, SCD Type 2)  
+- Modular dbt-style transformations with automated testing  
+- Data quality and lineage tracking for anomalies and schema drift  
+- BI dashboards in Power BI and Tableau for KPI alignment  
+- MLflow lineage tracking and AWS EC2/S3/RDS integration  
+
+---
+
+Aya Mekni — Certified Data Scientist and AI Engineer  
+Transforming Data into Intelligence and Innovation

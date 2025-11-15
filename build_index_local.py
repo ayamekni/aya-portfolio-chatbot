@@ -3,15 +3,17 @@ import json
 import re
 from markdown import markdown
 from sentence_transformers import SentenceTransformer
+from tqdm import tqdm
 
 # ==============================
 # CONFIGURATION
 # ==============================
 DATA_DIR = os.path.join(os.getcwd(), "data")
-CV_PATH = os.path.join(DATA_DIR, "cv.md")
+CV_PATH = os.path.join(DATA_DIR, "cv.md")  # your markdown resume file
 OUT_PATH = os.path.join(DATA_DIR, "index.json")
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
-CHUNK_SIZE = 700  # characters per chunk (approx.)
+CHUNK_SIZE = 800  # slightly larger chunks = better section coherence
+OVERLAP = 120     # overlap words between chunks for smoother context
 
 # ==============================
 # HELPER FUNCTIONS
@@ -26,17 +28,32 @@ def strip_markdown(md_text: str) -> str:
     return text
 
 
-def chunk_text(text: str, max_len: int = CHUNK_SIZE):
-    """Split long text into chunks of ~max_len characters."""
-    words = text.split()
-    chunks, current = [], []
-    for w in words:
-        current.append(w)
-        if len(" ".join(current)) >= max_len:
+def smart_chunk_by_section(text: str, max_len: int = CHUNK_SIZE):
+    """
+    Split CV text by major headings (Experience, Projects, etc.)
+    before chunking to preserve logical sections.
+    """
+    # Split on markdown headers or section keywords
+    sections = re.split(
+        r"(?:## |### |# |\n\s*---\s*|\n\s*##\s*|\n\s*Experience|Projects|Education|Skills|Certifications|Profile|Internship)",
+        text,
+        flags=re.IGNORECASE,
+    )
+    chunks = []
+    for s in sections:
+        s = s.strip()
+        if not s:
+            continue
+        words = s.split()
+        current = []
+        for w in words:
+            current.append(w)
+            if len(" ".join(current)) >= max_len:
+                chunks.append(" ".join(current))
+                # Add overlap for smoother retrieval
+                current = current[-OVERLAP:]
+        if current:
             chunks.append(" ".join(current))
-            current = []
-    if current:
-        chunks.append(" ".join(current))
     return chunks
 
 
@@ -48,13 +65,15 @@ def main():
         print("❌ Missing data/cv.md — please add your resume text file.")
         return
 
-    print("📄 Reading CV...")
+    print("📄 Reading Aya’s CV...")
     with open(CV_PATH, "r", encoding="utf-8") as f:
         md = f.read()
 
     clean_text = strip_markdown(md)
-    chunks = chunk_text(clean_text)
-    print(f"🧩 Split into {len(chunks)} chunks.")
+    print(f"🧹 Cleaned text length: {len(clean_text)} characters")
+
+    chunks = smart_chunk_by_section(clean_text)
+    print(f"🧩 Split into {len(chunks)} context chunks.")
 
     print(f"⚙️ Loading model '{MODEL_NAME}'...")
     model = SentenceTransformer(MODEL_NAME)
@@ -63,7 +82,7 @@ def main():
     embeddings = model.encode(chunks, convert_to_numpy=True, show_progress_bar=True)
 
     index = []
-    for i, (text, emb) in enumerate(zip(chunks, embeddings)):
+    for i, (text, emb) in tqdm(enumerate(zip(chunks, embeddings)), total=len(chunks)):
         index.append({
             "id": str(i),
             "text": text,
@@ -75,6 +94,7 @@ def main():
         json.dump(index, f, indent=2, ensure_ascii=False)
 
     print(f"✅ Saved {len(index)} chunks with embeddings → {OUT_PATH}")
+    print("✨ Aya’s updated CV index is ready for your chatbot!")
 
 
 if __name__ == "__main__":
