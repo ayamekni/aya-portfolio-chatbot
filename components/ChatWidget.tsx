@@ -1,27 +1,101 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 type Message = { role: 'user' | 'assistant'; content: string };
 
-export default function ChatWidget() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [open, setOpen] = useState(true);
-  const [expanded, setExpanded] = useState(false); // 🆕 Expand toggle
-  const containerRef = useRef<HTMLDivElement>(null);
+const INITIAL_MESSAGE: Message = {
+  role: 'assistant',
+  content:
+    " Hi! I’m **Aya’s AI Assistant**.\nAsk me about her **skills, projects or experience** ",
+};
+
+// ---------- TYPEWRITER COMPONENT ----------
+function TypewriterAssistant({ text }: { text: string }) {
+  const [displayed, setDisplayed] = useState('');
+  const index = useRef(0);
 
   useEffect(() => {
-    if (containerRef.current)
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    setDisplayed('');
+    index.current = 0;
+
+    const interval = setInterval(() => {
+      setDisplayed(prev => prev + text.charAt(index.current));
+      index.current++;
+
+      if (index.current >= text.length) {
+        clearInterval(interval);
+      }
+    }, 15); // speed (lower = faster)
+
+    return () => clearInterval(interval);
+  }, [text]);
+
+  return (
+    <div className="chat-md">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        {displayed}
+      </ReactMarkdown>
+
+      {displayed.length < text.length && (
+        <span className="cursor">|</span>
+      )}
+
+      <style jsx>{`
+        .cursor {
+          margin-left: 3px;
+          animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+          0%, 50%, 100% {
+            opacity: 1;
+          }
+          25%, 75% {
+            opacity: 0;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+export default function ChatWidget() {
+  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
+  const [input, setInput] = useState('');
+  const [open, setOpen] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const lastAssistantRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    if (messages[messages.length - 1]?.role === 'assistant' && lastAssistantRef.current) {
+      lastAssistantRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    } else {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   }, [messages]);
 
-  async function send() {
-    if (!input.trim()) return;
+  const send = useCallback(async () => {
+    if (!input.trim() || loading) return;
+
     const user: Message = { role: 'user', content: input };
+
     setMessages(prev => [...prev, user]);
     setInput('');
+    setLoading(true);
 
     try {
       const res = await fetch('/api/chat', {
@@ -29,39 +103,50 @@ export default function ChatWidget() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ messages: [...messages, user] }),
       });
+
       const data = await res.json();
+
       const assistant: Message = {
         role: 'assistant',
-        content: data?.reply ?? 'No answer.',
+        content: data?.reply ?? ' No answer returned.',
       };
+
       setMessages(prev => [...prev, assistant]);
-    } catch (e: any) {
+    } catch (error: any) {
       setMessages(prev => [
         ...prev,
-        { role: 'assistant', content: `⚠️ Error: ${e?.message ?? 'unknown'}` },
+        { role: 'assistant', content: ` ${error?.message ?? 'Connection error'}` },
       ]);
+    } finally {
+      setLoading(false);
     }
-  }
+  }, [input, messages, loading]);
+
+  const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      send();
+    }
+  };
 
   return (
     <div style={{ position: 'fixed', right: 24, bottom: 24, zIndex: 1000 }}>
       <div
         style={{
-          width: expanded ? 520 : 380, // 🆕 Smooth width toggle
-          height: open ? 480 : 64,
+          width: expanded ? 520 : 380,
+          height: open ? 500 : 64,
           background: 'rgba(14, 18, 40, 0.85)',
-          backdropFilter: 'blur(20px)',
+          backdropFilter: 'blur(18px)',
           border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 20,
+          borderRadius: 18,
           overflow: 'hidden',
-          boxShadow: '0 12px 60px rgba(118, 75, 162, 0.5)',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          color: 'white',
+          boxShadow: '0 8px 30px rgba(118, 75, 162, 0.35)',
+          transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+          color: '#fff',
           fontFamily: 'Poppins, Inter, sans-serif',
-          position: 'relative',
         }}
       >
-        {/* === Header === */}
+        {/* HEADER */}
         <div
           style={{
             padding: '14px 18px',
@@ -70,129 +155,83 @@ export default function ChatWidget() {
             alignItems: 'center',
             justifyContent: 'space-between',
             fontWeight: 600,
-            fontSize: 16,
+            fontSize: 15,
           }}
         >
           <span>✨ Aya Assistant</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            {/* 🆕 Expand/Contract Button */}
-            <button
-              onClick={() => setExpanded(e => !e)}
-              title={expanded ? 'Shrink window' : 'Expand window'}
-              style={{
-                background: 'rgba(255,255,255,0.15)',
-                color: '#fff',
-                border: 'none',
-                cursor: 'pointer',
-                width: 30,
-                height: 30,
-                borderRadius: 6,
-                fontSize: 18,
-                lineHeight: 1,
-                backdropFilter: 'blur(6px)',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={e =>
-                (e.currentTarget.style.background = 'rgba(255,255,255,0.25)')
-              }
-              onMouseLeave={e =>
-                (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')
-              }
-            >
-              {expanded ? '↔️' : '⤢'}
-            </button>
 
-            {/* Open/Close Button */}
-            <button
-              onClick={() => setOpen(o => !o)}
-              style={{
-                background: 'rgba(255,255,255,0.15)',
-                color: '#fff',
-                border: 'none',
-                cursor: 'pointer',
-                width: 32,
-                height: 32,
-                borderRadius: 8,
-                fontSize: 18,
-                fontWeight: 'bold',
-                backdropFilter: 'blur(6px)',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={e =>
-                (e.currentTarget.style.background = 'rgba(255,255,255,0.25)')
-              }
-              onMouseLeave={e =>
-                (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')
-              }
-            >
+          <div style={{ display: 'flex', gap: 10 }}>
+            <HeaderButton onClick={() => setExpanded(prev => !prev)}>
+              {expanded ? '↔' : '⤢'}
+            </HeaderButton>
+
+            <HeaderButton onClick={() => setOpen(prev => !prev)}>
               {open ? '−' : '+'}
-            </button>
+            </HeaderButton>
           </div>
         </div>
 
-        {/* === Messages === */}
         {open && (
           <>
             <div
               ref={containerRef}
               style={{
                 padding: 14,
-                height: 340,
+                height: 350,
                 overflowY: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 10,
-                background: 'transparent',
+                gap: 12,
               }}
             >
-              {messages.length === 0 && (
-                <div
-                  style={{
-                    textAlign: 'center',
-                    color: 'rgba(255,255,255,0.85)',
-                    fontSize: 15,
-                    marginTop: 40,
-                  }}
-                >
-                  👋 Hey there! I’m <strong>Aya’s AI Assistant</strong>.<br />
-                  Ask about her <em>skills, projects,</em> or <em>experience</em>.
+              {messages.map((m, i) => {
+                const isLastAssistant =
+                  i === messages.length - 1 && m.role === 'assistant';
+
+                return (
+                  <div
+                    key={i}
+                    ref={isLastAssistant ? lastAssistantRef : null}
+                    style={{
+                      alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start',
+                      background:
+                        m.role === 'user'
+                          ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                          : 'rgba(255,255,255,0.08)',
+                      padding: '12px 15px',
+                      borderRadius:
+                        m.role === 'user'
+                          ? '18px 18px 4px 18px'
+                          : '18px 18px 18px 4px',
+                      maxWidth: '80%',
+                      fontSize: 14.5,
+                      lineHeight: 1.6,
+                      boxShadow:
+                        m.role === 'user'
+                          ? '0 4px 15px rgba(118,75,162,0.35)'
+                          : '0 2px 10px rgba(0,0,0,0.25)',
+                    }}
+                  >
+                    {m.role === 'assistant' && isLastAssistant ? (
+                      <TypewriterAssistant text={m.content} />
+                    ) : (
+                      <div className="chat-md">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {m.content}
+                        </ReactMarkdown>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+              {loading && (
+                <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>
+                  Aya is thinking...
                 </div>
               )}
-
-              {messages.map((m, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start',
-                    background:
-                      m.role === 'user'
-                        ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-                        : 'rgba(255,255,255,0.1)',
-                    color: m.role === 'user' ? '#fff' : '#f5f5f5',
-                    padding: '12px 16px',
-                    borderRadius:
-                      m.role === 'user'
-                        ? '18px 18px 4px 18px'
-                        : '18px 18px 18px 4px',
-                    fontSize: 15,
-                    lineHeight: 1.6,
-                    maxWidth: '80%',
-                    whiteSpace: 'pre-wrap',
-                    animation: 'fadeIn 0.3s ease-out',
-                    boxShadow:
-                      m.role === 'user'
-                        ? '0 4px 15px rgba(118,75,162,0.4)'
-                        : '0 2px 10px rgba(0,0,0,0.25)',
-                  }}
-                >
-                  <div className="chat-markdown">
-                    <ReactMarkdown>{m.content}</ReactMarkdown>
-                  </div>
-                </div>
-              ))}
             </div>
 
-            {/* === Input === */}
             <form
               onSubmit={e => {
                 e.preventDefault();
@@ -200,48 +239,43 @@ export default function ChatWidget() {
               }}
               style={{
                 display: 'flex',
-                gap: 10,
                 padding: 14,
-                background: 'rgba(255,255,255,0.04)',
-                borderTop: '1px solid rgba(255,255,255,0.1)',
+                gap: 8,
+                borderTop: '1px solid rgba(255,255,255,0.08)',
               }}
             >
               <input
                 value={input}
                 onChange={e => setInput(e.target.value)}
+                onKeyDown={handleKey}
                 placeholder="Type your question..."
+                disabled={loading}
                 style={{
                   flex: 1,
-                  borderRadius: 12,
-                  border: '1px solid rgba(255,255,255,0.15)',
-                  background: 'rgba(20,25,45,0.8)',
-                  color: '#fff',
                   padding: '10px 14px',
+                  borderRadius: 12,
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  background: 'rgba(20,25,45,0.9)',
+                  color: '#fff',
                   fontSize: 14,
                   outline: 'none',
                 }}
               />
+
               <button
-                type="submit"
+                disabled={loading}
                 style={{
                   borderRadius: 12,
                   border: 'none',
                   background:
                     'linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
                   color: '#fff',
-                  padding: '10px 18px',
+                  padding: '10px 16px',
                   cursor: 'pointer',
                   fontWeight: 600,
                   fontSize: 14,
-                  boxShadow: '0 4px 15px rgba(118,75,162,0.5)',
-                  transition: 'transform 0.2s ease',
+                  opacity: loading ? 0.6 : 1,
                 }}
-                onMouseEnter={e =>
-                  (e.currentTarget.style.transform = 'translateY(-2px)')
-                }
-                onMouseLeave={e =>
-                  (e.currentTarget.style.transform = 'translateY(0)')
-                }
               >
                 Send
               </button>
@@ -250,39 +284,45 @@ export default function ChatWidget() {
         )}
       </div>
 
-      {/* === Animations === */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(4px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-
-      {/* === Markdown Styles === */}
       <style jsx global>{`
-        .chat-markdown ul {
+        .chat-md ul {
           margin: 6px 0 6px 16px;
-          padding: 0;
         }
-        .chat-markdown li {
+        .chat-md li {
           margin-bottom: 4px;
         }
-        .chat-markdown strong {
+        .chat-md strong {
           color: #f6aaff;
         }
-        .chat-markdown em {
+        .chat-md em {
           color: #c5b8ff;
-        }
-        .chat-markdown p {
-          margin: 4px 0;
         }
       `}</style>
     </div>
+  );
+}
+
+function HeaderButton({
+  children,
+  onClick,
+}: {
+  children: React.ReactNode;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        background: 'rgba(255,255,255,0.18)',
+        border: 'none',
+        color: '#fff',
+        width: 28,
+        height: 28,
+        borderRadius: 6,
+        cursor: 'pointer',
+      }}
+    >
+      {children}
+    </button>
   );
 }
