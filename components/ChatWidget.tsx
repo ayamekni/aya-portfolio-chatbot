@@ -9,7 +9,7 @@ type Message = { role: 'user' | 'assistant'; content: string };
 const INITIAL_MESSAGE: Message = {
   role: 'assistant',
   content:
-    " Hi! I’m **Aya’s AI Assistant**.\nAsk me about her **skills, projects or experience** ",
+    "Hi! I’m **Aya’s AI Assistant**.\nAsk me about her **skills, projects or experience** ✨",
 };
 
 // ---------- TYPEWRITER COMPONENT ----------
@@ -28,7 +28,7 @@ function TypewriterAssistant({ text }: { text: string }) {
       if (index.current >= text.length) {
         clearInterval(interval);
       }
-    }, 15); // speed (lower = faster)
+    }, 15);
 
     return () => clearInterval(interval);
   }, [text]);
@@ -50,12 +50,8 @@ function TypewriterAssistant({ text }: { text: string }) {
         }
 
         @keyframes blink {
-          0%, 50%, 100% {
-            opacity: 1;
-          }
-          25%, 75% {
-            opacity: 0;
-          }
+          0%, 50%, 100% { opacity: 1; }
+          25%, 75% { opacity: 0; }
         }
       `}</style>
     </div>
@@ -66,7 +62,6 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState('');
   const [open, setOpen] = useState(true);
-  const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -75,7 +70,10 @@ export default function ChatWidget() {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    if (messages[messages.length - 1]?.role === 'assistant' && lastAssistantRef.current) {
+    if (
+      messages[messages.length - 1]?.role === 'assistant' &&
+      lastAssistantRef.current
+    ) {
       lastAssistantRef.current.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
@@ -108,14 +106,14 @@ export default function ChatWidget() {
 
       const assistant: Message = {
         role: 'assistant',
-        content: data?.reply ?? ' No answer returned.',
+        content: data?.reply ?? 'No answer returned.',
       };
 
       setMessages(prev => [...prev, assistant]);
     } catch (error: any) {
       setMessages(prev => [
         ...prev,
-        { role: 'assistant', content: ` ${error?.message ?? 'Connection error'}` },
+        { role: 'assistant', content: `${error?.message ?? 'Connection error'}` },
       ]);
     } finally {
       setLoading(false);
@@ -133,7 +131,7 @@ export default function ChatWidget() {
     <div style={{ position: 'fixed', right: 24, bottom: 24, zIndex: 1000 }}>
       <div
         style={{
-          width: expanded ? 520 : 380,
+          width: 380,
           height: open ? 500 : 64,
           background: 'rgba(14, 18, 40, 0.85)',
           backdropFilter: 'blur(18px)',
@@ -160,15 +158,10 @@ export default function ChatWidget() {
         >
           <span>✨ Aya Assistant</span>
 
-          <div style={{ display: 'flex', gap: 10 }}>
-            <HeaderButton onClick={() => setExpanded(prev => !prev)}>
-              {expanded ? '↔' : '⤢'}
-            </HeaderButton>
-
-            <HeaderButton onClick={() => setOpen(prev => !prev)}>
-              {open ? '−' : '+'}
-            </HeaderButton>
-          </div>
+          {/* ONLY OPEN/CLOSE BUTTON */}
+          <HeaderButton onClick={() => setOpen(prev => !prev)}>
+            {open ? '−' : '+'}
+          </HeaderButton>
         </div>
 
         {open && (
@@ -193,7 +186,8 @@ export default function ChatWidget() {
                     key={i}
                     ref={isLastAssistant ? lastAssistantRef : null}
                     style={{
-                      alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start',
+                      alignSelf:
+                        m.role === 'user' ? 'flex-end' : 'flex-start',
                       background:
                         m.role === 'user'
                           ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
@@ -226,12 +220,18 @@ export default function ChatWidget() {
               })}
 
               {loading && (
-                <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>
+                <div
+                  style={{
+                    fontSize: 13,
+                    color: 'rgba(255,255,255,0.6)',
+                  }}
+                >
                   Aya is thinking...
                 </div>
               )}
             </div>
 
+            {/* INPUT */}
             <form
               onSubmit={e => {
                 e.preventDefault();
